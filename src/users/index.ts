@@ -1,5 +1,6 @@
 import express from 'express';
-import { users } from './user.entity';
+// import { users } from './user.entity';
+import prisma from '../db';
 
 const router = express.Router();
 
@@ -9,18 +10,19 @@ const router = express.Router();
     ○ Group-based shares
     ○ Global shares
  */
-router.get('/user/:id/resources', (req, res) => {
-    const user = users.find(u => u.id === req.params.id);
-    if (!user) {
-        return res.status(404).json({ message: 'User not found' });
-    }
-    res.json(user);
+router.get('/user/:id/resources', async (req, res) => {
+    // const user = users.find(u => u.id === req.params.id);
+    // if (!user) {
+    //     return res.status(404).json({ message: 'User not found' });
+    // }
+    res.json({});
 });
 
 /**
  * Returns a list of users and how many resources each has access to.
  */
-router.get('/users/with-resource-count', (req, res) => {
+router.get('/users/with-resource-count', async (req, res) => {
+    const users = await prisma.user.findMany();
     res.json(users);
 });
 
