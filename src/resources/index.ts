@@ -10,12 +10,6 @@ const router = express.Router();
     ○ All users if the resource is shared with everyone
  */
 router.get('/resource/:id/access-list', async (req: Request, res: Response) => {
-    // const resource = resources.find(r => r.id === req.params.id);
-    // if (!resource) {
-    //     return res.status(404).json({ message: 'Resource not found.' });
-    // }
-    // res.json(resource);
-
     const resourceId = parseInt(req.params.id, 10);
 
     if (isNaN(resourceId)) {

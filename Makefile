@@ -20,7 +20,7 @@ start:
 
 	sleep 5
 
-	PGPASSWORD=postgres psql -h localhost -U postgres -d resources_db -f hydrate.sql
+	PGPASSWORD=postgres psql -h localhost -U postgres -d resources_db -f seed.sql
 
 	echo "🚀 Ran DB Initialization Script Successfully!!! 🚀"
 
