@@ -19,7 +19,7 @@ INSERT INTO "Group" (id, name) VALUES
   (4, 'admins');
 
 -- Create user-group memberships
-INSERT INTO "UserGroup" (userId, groupId) VALUES
+INSERT INTO "UserGroup" ("userId", "groupId") VALUES
   (1, 1),  -- alice in devs
   (2, 1),  -- bob in devs
   (3, 2),  -- carol in designers
@@ -41,13 +41,13 @@ INSERT INTO "Resource" (id, name, "sharedWithEveryone") VALUES
   (6, 'Internal Docs', FALSE);
 
 -- Direct shares (resource shared directly with users)
-INSERT INTO "ResourceUserShare" (resourceId, userId) VALUES
+INSERT INTO "ResourceUserShare" ("resourceId", "userId") VALUES
   (1, 1),  -- alice can access Project Plan directly
   (2, 3),  -- carol can access Design Specs directly
   (4, 5);  -- eve can access Admin Dashboard directly
 
 -- Group-based shares
-INSERT INTO "ResourceGroupShare" (resourceId, groupId) VALUES
+INSERT INTO "ResourceGroupShare" ("resourceId", "groupId") VALUES
   (1, 1),  -- Project Plan shared with devs
   (2, 2),  -- Design Specs shared with designers
   (3, 3),  -- Test Results shared with qa
