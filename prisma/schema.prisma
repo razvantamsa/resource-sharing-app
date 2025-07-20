@@ -1,0 +1,64 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  groups    UserGroup[]
+  shares    ResourceUserShare[]
+}
+
+model Group {
+  id      Int      @id @default(autoincrement())
+  name    String   @unique
+  users   UserGroup[]
+  shares  ResourceGroupShare[]
+}
+
+model UserGroup {
+  userId  Int
+  groupId Int
+  user    User   @relation(fields: [userId], references: [id])
+  group   Group  @relation(fields: [groupId], references: [id])
+
+  @@id([userId, groupId])
+}
+
+model Resource {
+  id                   Int                    @id @default(autoincrement())
+  name                 String
+  sharedWithEveryone   Boolean                @default(false)
+  userShares           ResourceUserShare[]
+  groupShares          ResourceGroupShare[]
+}
+
+model ResourceUserShare {
+  resourceId Int
+  userId     Int
+  resource   Resource @relation(fields: [resourceId], references: [id])
+  user       User     @relation(fields: [userId], references: [id])
+
+  @@id([resourceId, userId])
+}
+
+model ResourceGroupShare {
+  resourceId Int
+  groupId    Int
+  resource   Resource @relation(fields: [resourceId], references: [id])
+  group      Group    @relation(fields: [groupId], references: [id])
+
+  @@id([resourceId, groupId])
+}
