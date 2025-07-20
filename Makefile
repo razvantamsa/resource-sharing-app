@@ -18,16 +18,16 @@ start:
 
 	npx prisma migrate dev --name init
 
+	sleep 5
+
+	PGPASSWORD=postgres psql -h localhost -U postgres -d resources_db -f hydrate.sql
+
 	echo "🚀 Ran DB Initialization Script Successfully!!! 🚀"
 
 	pnpm dev
 
 stop:
 	docker stop resource-sharing-db || true
-
-hydrate: run
-	sleep 3
-	PGPASSWORD=postgres psql -h localhost -U postgres -d resources_db -f hydrate.sql
 
 shell:
 	docker exec -it resource-sharing-db psql -U postgres -d resources_db
