@@ -16,6 +16,15 @@ router.get('/user/:id/resources', async (req, res) => {
         return res.status(400).json({ message: 'Invalid user ID' });
     }
 
+    const user = await prisma.user.findUnique({
+        where: { id: userId }
+    });
+
+    if (!user) {
+        throw new Error('User not found');
+    }
+
+
     try {
         const resources = await prisma.$queryRawUnsafe<any[]>(`
             SELECT DISTINCT r.*

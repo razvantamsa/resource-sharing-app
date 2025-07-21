@@ -27,7 +27,8 @@ INSERT INTO "Resource" (id, name, "sharedWithEveryone") VALUES
 
 -- Direct shares (overlap with group shares)
 INSERT INTO "ResourceUserShare" ("resourceId", "userId") VALUES
-  (1, 2),  -- bob can access Project Plan directly
+  (1, 2),  -- bob can access Project Plan 
+  (2, 2),  -- bob can access Admin Dashboard directly
   (2, 3);  -- carol can access Admin Dashboard directly
 
 -- Group-based shares (resources shared with multiple groups)
@@ -35,5 +36,4 @@ INSERT INTO "ResourceGroupShare" ("resourceId", "groupId") VALUES
   (1, 1),  -- Project Plan shared with devs
   (1, 2),  -- Project Plan shared with admins
   (2, 2),  -- Admin Dashboard shared with admins
-  (3, 1),  -- Public Notice shared with devs (redundant, for complexity)
-  (3, 2);  -- Public Notice shared with admins
+  (3, 2);  -- Public Notice shared with admins (redundant, for complexity)

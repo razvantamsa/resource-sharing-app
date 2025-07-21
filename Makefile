@@ -3,7 +3,7 @@
 .PHONY: start stop shell
 
 setup:
-	. ~/.nvm/nvm.sh && nvm install 20 && nvm use 20 && pnpm install --frozen-lockfile
+	. ~/.nvm/nvm.sh && nvm install 20 && nvm use v20 && npx pnpm install --frozen-lockfile
 
 start:
 	docker run --rm -d \
